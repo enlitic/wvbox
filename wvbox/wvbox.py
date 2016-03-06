@@ -264,8 +264,6 @@ class WVBox(object):
         
         if isinstance(obj, str) or isinstance(obj, unicode):
             tokenized = self._tokenizer.analyze(obj)
-            if len(tokenized) == 1:
-                return self._get_w2i(tokenized[0])
             return [self._get_w2i(o) for o in tokenized]
         elif hasattr(obj, '__iter__'):
             return [self.get_indices(o) for o in obj]
