@@ -40,7 +40,7 @@ class WVBox(object):
     the dog likes his owner
     this is an interesting finding
     '''
-    def __init__(self, vector_file=None, tokenizer=None, verbose=True):
+    def __init__(self, vector_file=None, tokenizer, verbose=True):
         ''' 
         Ctor for word vector container class.
         
@@ -67,9 +67,9 @@ class WVBox(object):
         self._w2i = {}
         self._i2w = {}
         
-        if tokenizer is None:
-            from .process import parse_tokens
-            tokenizer = parse_tokens
+#        if tokenizer is None:
+#            from .process import parse_tokens
+#            tokenizer = parse_tokens
 
         self._tokenizer = tokenizer
 
@@ -263,7 +263,7 @@ class WVBox(object):
         '''
         
         if isinstance(obj, str) or isinstance(obj, unicode):
-            tokenized = self._tokenizer(obj)
+            tokenized = self._tokenizer.analyze(obj)
             if len(tokenized) == 1:
                 return self._get_w2i(tokenized[0])
             return [self._get_w2i(o) for o in tokenized]
@@ -296,7 +296,7 @@ class WVBox(object):
     @builtmethod
     def __getitem__(self, key):
         if isinstance(key, unicode):
-            tokenized = self._tokenizer(key)
+            tokenized = self._tokenizer.analyze(key)
             if len(tokenized) == 1:
                 return self.W[self._get_w2i(key), :]
             return self.W[np.array([self._get_w2i(k) for k in key]), :]
