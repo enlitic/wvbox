@@ -40,19 +40,19 @@ class WVBox(object):
     the dog likes his owner
     this is an interesting finding
     '''
-    def __init__(self, vector_file=None, tokenizer, verbose=True):
+    def __init__(self, tokenizer, vector_file=None, verbose=True):
         ''' 
-        Ctor for word vector container class.
+        Container for word vector container class.
         
         Args:
         -----
+            tokenizer: an object with a callable method 'analyze' that takes 
+                as input a string and returns a list of tokens.
+
             vector_file: a path to a file containing the word vectors 
                 we are interested in. Each line should have a word followed
                 by a space followed by the space-delimited elements of the
                 calculated word vectors.
-
-            tokenizer: a function that takes as input a string and returns
-                a list of the tokens.
         '''
         
         super(WVBox, self).__init__()
