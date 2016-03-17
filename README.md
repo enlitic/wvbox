@@ -4,7 +4,7 @@ A wrapper class for creating an interface to word vectors.
 
 ##Usage
 
-You can install with `pip install git+https://github.com/lukedeo/wvbox`
+You can install with `pip install git+https://github.com/enlitic/wvbox`
 
 ```python
 from wvbox import WVBox
