@@ -22,3 +22,7 @@ for s in wv.get_words(wv.get_indices(docs)):
 # the dog likes his owner
 # this is an interesting finding
 ```
+
+##Tests
+Run
+```python -m unittest discover```
