@@ -144,7 +144,7 @@ class WVBox(object):
                 log('Loading vectors from %s', self._vector_file)
 
             if header:
-                h = f.next().split(' ')
+                h = f.next().rstrip().split(' ')
                 if len(h) != 2:
                     logger.exception("Parsed header (%s) is not length 2!", h)
                     raise ValueError()
