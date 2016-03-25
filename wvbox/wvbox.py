@@ -16,8 +16,8 @@ LOGGER_PREFIX = ' %s'
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def log(msg):
-    logger.info(LOGGER_PREFIX % msg)
+def log(msg, *args):
+    logger.info(LOGGER_PREFIX % msg, *args)
 
 class WVBoxException(Exception):
     """
@@ -115,7 +115,7 @@ class WVBox(object):
         return self
 
     # def build(self, zero_token=False, normalize_variance=False, normalize_norm=False):
-    def build(self, normalize_variance=False, normalize_norm=False):
+    def build(self, header=True, normalize_variance=False, normalize_norm=False):
         ''' 
         Builds the internal structure for the word vectors
         
@@ -141,13 +141,22 @@ class WVBox(object):
 
         with open(self._vector_file, 'r') as f:
             if self._verbose:
-                log('Loading vectors from {}'.format(self._vector_file))
+                log('Loading vectors from %s', self._vector_file)
+
+            if header:
+                h = f.next().split(' ')
+                if len(h) != 2:
+                    logger.exception("Parsed header (%s) is not length 2!", h)
+                    raise ValueError()
+                if self._verbose:
+                    log("Loading %s vectors of length %s", h[0], h[1])
+            
             vectors = {}
             words = []
             ctr = 0
             for line in f:
                 if ctr % 10000 == 0:
-                    log('Loading word {}'.format(ctr))
+                    log('Loading word %d', ctr)
                 line = line.decode('utf-8')
                 vals = line.rstrip().split(' ')
                 if vals[0] != u'<unk>':
@@ -192,7 +201,7 @@ class WVBox(object):
         vs, ix = [], []
         for word, v in vectors.iteritems():
             if ctr % 10000 == 0:
-                log('Loading word vector {}'.format(ctr))
+                log('Loading word vector %d', ctr)
             if word == '<unk>':
                 continue
             vs.append(v)
