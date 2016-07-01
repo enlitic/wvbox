@@ -8,9 +8,7 @@ except ImportError:
     logging.warn('spaCy (https://spacy.io) not found. Continue at your own risk.')
 
 setup(name='WVBox',
-      version='0.0.1',
+      version='0.0.2',
       description='Library for boxing up word vector operations.',
-      author='Luke de Oliveira',
-      author_email='lukedeo@ldo.io',
-      url='https://github.com/lukedeo/wvbox',
+      url='https://github.com/enlitic/wvbox',
       packages=find_packages())
